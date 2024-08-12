@@ -12,7 +12,7 @@ import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/rooms.js";
 import Hotel from "./models/Hotel.js";
 import Room from "./models/Room.js";
-// import { validationResult } from 'express-validator'; // Make sure you have express-validator installed
+import { validationResult } from 'express-validator'; // Make sure you have express-validator installed
 import bcrypt from 'bcryptjs'; // Make sure you have bcryptjs installed
 import { connect } from "http2";
 
