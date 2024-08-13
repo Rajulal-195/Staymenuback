@@ -12,19 +12,20 @@ import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/rooms.js";
 import Hotel from "./models/Hotel.js";
 import Room from "./models/Room.js";
-import { validationResult } from 'express-validator'; // Make sure you have express-validator installed
+// import { validationResult } from 'express-validator'; // Make sure you have express-validator installed
 import bcrypt from 'bcryptjs'; // Make sure you have bcryptjs installed
-import { connect } from "http2";
+// import { connect } from "http2";
 
 const app = express();
 dotenv.config();
-const url = process.env.MONGODB_URI;
-const dbName = process.env.DATABASE_NAME;
+// const url = process.env.MONGODB_URI;
+// const dbName = process.env.DATABASE_NAME;
 
 
 const port = process.env.PORT || 8800;
+// const url= "mongodb+srv://staymenuinfo:lM47uamvYEHt2rjx@cluster0.57f0e.mongodb.net/Staymenu"
 // const url = 'mongodb://127.0.0.1:27017/StayMenu?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.0.1';
-
+const url = "mongodb+srv://staymenuinfo:A5am4MrELkOJcb2b@cluster1.6nmsx.mongodb.net/StayHotel"
 // Multer setup for handling file uploads
 const storage = multer.diskStorage({
   destination: './upload/images',
@@ -42,17 +43,16 @@ app.use(cookieParser());
 app.use('/images', express.static('upload/images'));
 
 // Connect to MongoDB
-// const Dbconnect = () => {
-//   mongoose.connect(url)
-//     .then(() => console.log("mongodb connected"))
-//     .catch((err) => console.log(err));
-// };
-// mongoose.connection.on("disconnected", () => {
-//   console.log("mongoDB disconnected!");
-// });
+const Dbconnect = () => {
+  mongoose.connect(url)
+    .then(() => console.log("mongodb connected"))
+    .catch((err) => console.log(err));
+};
+mongoose.connection.on("disconnected", () => {
+  console.log("mongoDB disconnected!");
+});
 
 
-mongoose.connect("mongodb+srv://staymenuinfo:lM47uamvYEHt2rjx@cluster0.57f0e.mongodb.net/Staymenu")
 
 // Routes
 app.use("/api/auth", authRoute);
@@ -145,6 +145,6 @@ app.listen(port, (err) => {
     console.log('Error is', err);
   } else {
     console.log(`Listening by Server on port http://localhost:${port}`);
-    // Dbconnect();
+    Dbconnect();
   }
 });
